@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Be.Ark — A Personal AI That Remembers</title>
+<meta name="description" content="Be.Ark is a local-first personal AI for creators. Your conversations, memory, and relationships — kept private on your own machine." />
+<meta property="og:title" content="Be.Ark — A Personal AI That Remembers" />
+<meta property="og:description" content="Local-first personal AI for creators. Private by design. Yours forever." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://re-be.world/" />
+<meta name="theme-color" content="#0a0c0a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0c0a;
+    --bg-soft:#0f120f;
+    --panel:#13171300;
+    --ink:#eef2ee;
+    --ink-dim:#a7b0a7;
+    --ink-faint:#6e786e;
+    --accent:#39d98a;
+    --accent-soft:#39d98a22;
+    --line:#1d231d;
+    --radius:18px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:"Space Grotesk",Inter,sans-serif}
+
+  /* ambient glow */
+  .glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(620px 420px at 70% -5%, #39d98a22, transparent 70%),
+      radial-gradient(520px 380px at 8% 12%, #2bd1ff14, transparent 70%);
+  }
+
+  /* nav */
+  header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
+    background:#0a0c0acc;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em}
+  .logo{width:26px;height:26px;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),#1f9d63);
+    display:grid;place-items:center;color:#04130b;font-weight:800;font-size:14px}
+  .nav-cta{font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;
+    background:var(--accent);color:#04130b;transition:.2s}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 22px #39d98a44}
+
+  /* hero */
+  section{position:relative;z-index:1}
+  .hero{padding:96px 0 64px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-dim);
+    border:1px solid var(--line);background:var(--bg-soft);padding:6px 14px;border-radius:999px;margin-bottom:28px}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h1{font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
+  h1 .hl{background:linear-gradient(120deg,var(--accent),#8fe9c0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{max-width:620px;margin:22px auto 0;font-size:clamp(16px,2.1vw,20px);color:var(--ink-dim)}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .btn{font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;transition:.2s;border:1px solid transparent;display:inline-flex;align-items:center;gap:9px}
+  .btn-primary{background:var(--accent);color:#04130b}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px #39d98a55}
+  .btn-ghost{border-color:var(--line);color:var(--ink);background:var(--bg-soft)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .note{margin-top:16px;font-size:13px;color:var(--ink-faint)}
+
+  /* app mock */
+  .mock{margin:56px auto 0;max-width:860px;border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(180deg,#12161200,#0c0f0c);overflow:hidden;box-shadow:0 30px 80px #00000066}
+  .mock-bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--line);background:#0e120e}
+  .mock-bar i{width:11px;height:11px;border-radius:50%;background:#2a312a;display:inline-block}
+  .mock-bar i:nth-child(1){background:#ff5f57}.mock-bar i:nth-child(2){background:#febc2e}.mock-bar i:nth-child(3){background:#28c840}
+  .mock-bar span{margin-left:10px;font-size:12px;color:var(--ink-faint)}
+  .mock-body{display:grid;grid-template-columns:1fr;gap:14px;padding:26px}
+  .msg{max-width:80%;padding:13px 16px;border-radius:14px;font-size:14.5px}
+  .msg.user{align-self:flex-end;background:var(--accent-soft);border:1px solid #39d98a33;justify-self:end}
+  .msg.ai{align-self:flex-start;background:#11151133;border:1px solid var(--line);color:var(--ink-dim)}
+  .msg.ai b{color:var(--accent)}
+
+  /* features */
+  .features{padding:80px 0 30px}
+  .sec-h{text-align:center;margin-bottom:46px}
+  .sec-h h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em}
+  .sec-h p{color:var(--ink-dim);margin-top:10px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{border:1px solid var(--line);background:var(--bg-soft);border-radius:var(--radius);padding:26px;transition:.2s}
+  .card:hover{border-color:#39d98a55;transform:translateY(-3px)}
+  .card .ic{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);display:grid;place-items:center;font-size:20px;margin-bottom:16px}
+  .card h3{font-size:18px;letter-spacing:-.01em}
+  .card p{color:var(--ink-dim);font-size:14.5px;margin-top:8px}
+
+  /* how */
+  .how{padding:72px 0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .step{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:var(--bg-soft);position:relative}
+  .step .n{font-family:"Space Grotesk";font-size:13px;font-weight:700;color:var(--accent);border:1px solid #39d98a55;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin-bottom:14px}
+  .step h3{font-size:16px}
+  .step p{color:var(--ink-dim);font-size:14px;margin-top:7px}
+
+  /* final cta */
+  .final{padding:80px 0 96px;text-align:center}
+  .final-box{border:1px solid #39d98a33;border-radius:24px;padding:56px 28px;
+    background:radial-gradient(600px 220px at 50% 0%, #39d98a18, transparent 70%),var(--bg-soft)}
+  .final h2{font-size:clamp(26px,4.4vw,42px);letter-spacing:-.02em}
+  .final p{color:var(--ink-dim);margin:14px auto 0;max-width:520px}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);font-size:13px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .foot a:hover{color:var(--accent)}
+  .tease{font-size:12.5px;color:var(--ink-faint);margin-top:8px}
+  .tease b{color:var(--ink-dim);font-weight:600}
+
+  @media(max-width:720px){
+    .grid,.steps{grid-template-columns:1fr}
+    .hero{padding:72px 0 40px}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="logo">B</span> Be.Ark</div>
+    <a class="nav-cta" href="#download">Download</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="pill"><span class="dot"></span> Local-first · Private by design</div>
+    <h1>A personal AI that<br><span class="hl">actually remembers you.</span></h1>
+    <p class="sub">Be.Ark keeps your conversations, memory, and working files on <b>your own machine</b>. Built for creators who need a thinking partner — not another cloud account.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" id="dl-top" href="#download">↓ Download for macOS</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+    <p class="note">Free · Runs offline with local models · Your data never leaves your device</p>
+
+    <!-- mock -->
+    <div class="mock">
+      <div class="mock-bar"><i></i><i></i><i></i><span>Be.Ark</span></div>
+      <div class="mock-body">
+        <div class="msg user">Pull up everything from the GOODSTUPH pitch last month.</div>
+        <div class="msg ai">Found it in your <b>Living Files</b>. Here's the deck, the budget notes, and the two follow-ups you flagged — all from your local memory. Nothing left your machine.</div>
+        <div class="msg user">Draft a recap in my voice.</div>
+        <div class="msg ai">Done. I matched your tone from past notes. Want me to save it to the project file?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="wrap">
+    <div class="sec-h">
+      <h2>Built different.</h2>
+      <p>Not a chatbot. A companion that grows with your work.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">🧠</div>
+        <h3>Memory that persists</h3>
+        <p>Be.Ark remembers your projects, people, and decisions across sessions — a real long-term memory, not a fresh start every time.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔒</div>
+        <h3>Local-first &amp; private</h3>
+        <p>Run powerful local models offline. Your conversations and files stay on your device. Bring your own API key only if you want to.</p>
+      </div>
+      <div class="card">
+        <div class="ic">📁</div>
+        <h3>Living Files</h3>
+        <p>Your AI edits real documents alongside you — notes, plans, drafts — so your work and your assistant share one source of truth.</p>
+      </div>
+      <div class="card">
+        <div class="ic">💬</div>
+        <h3>Made for creators</h3>
+        <p>Import your existing chats, keep your tone, and work in your language. A thinking partner that understands creative work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="sec-h">
+      <h2>Up and running in minutes.</h2>
+      <p>Three steps. No account required.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Grab the macOS app and open the disk image.</p></div>
+      <div class="step"><div class="n">2</div><h3>Run “Read Me First”</h3><p>Double-click the included setup file. It walks you through a quick tutorial and prepares the app.</p></div>
+      <div class="step"><div class="n">3</div><h3>Launch Be.Ark</h3><p>Open the app, pick a local model or your own key, and start talking.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="download">
+  <div class="wrap">
+    <div class="final-box">
+      <h2>Your AI. Your memory. Your machine.</h2>
+      <p>Download Be.Ark and meet an assistant that's truly yours.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="dl-main" href="#">↓ Download for macOS</a>
+      </div>
+      <p class="note">Apple Silicon · Includes “Read Me First” setup guide</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="font-size:15px"><span class="logo" style="width:22px;height:22px;font-size:12px">B</span> Be.Ark</div>
+      <div class="tease">A product of <b>REBE WORLD FZCO</b> · <b>Coming soon:</b> the creator economy layer.</div>
+    </div>
+    <div>© 2026 REBE WORLD FZCO · <a href="mailto:hello@re-be.world">hello@re-be.world</a></div>
+  </div>
+</footer>
+
+<script>
+  // Single source of truth for the download URL — update when the release is live.
+  var DOWNLOAD_URL = "https://github.com/kyungsinkim-sketch/Be.Ark/releases/latest";
+  ["dl-top","dl-main"].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.setAttribute("href", DOWNLOAD_URL);
+  });
+</script>
+</body>
+</html>
