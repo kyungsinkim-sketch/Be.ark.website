@@ -10,7 +10,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://re-be.world/" />
 <meta name="theme-color" content="#070a0f" />
-<link rel="icon" type="image/svg+xml" href="./logo.svg" />
+<link rel="icon" type="image/png" href="./appicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -22,9 +22,9 @@
     --ink:#f6f8fb;           /* hsl(210 40% 98%) */
     --ink-dim:#9aa6b8;       /* hsl(215 20% 55%) */
     --ink-faint:#5e6b7e;
-    --accent:#f59e0b;        /* amber/gold — ark.works primary accent */
-    --accent-soft:#f59e0b1f;
-    --accent-glow:#f59e0b44;
+    --accent:#e9ce98;        /* champagne gold — softer key color */
+    --accent-soft:#e9ce981f;
+    --accent-glow:#e9ce9844;
     --purple:#863bff;        /* Be.Ark brand logo purple */
     --line:#1b2330;          /* hsl(220 15% 18%) */
     --radius:18px;
@@ -48,7 +48,7 @@
   /* ambient glow on top of stars */
   .glow{position:fixed;inset:0;z-index:0;pointer-events:none;
     background:
-      radial-gradient(620px 420px at 70% -5%, #f59e0b18, transparent 70%),
+      radial-gradient(620px 420px at 70% -5%, #e9ce9818, transparent 70%),
       radial-gradient(520px 380px at 8% 12%, #863bff14, transparent 70%);
   }
 
@@ -57,9 +57,9 @@
     background:#070a0fcc;border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:62px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em}
-  .brand .logo{width:26px;height:26px;display:block}
+  .brand .logo{width:26px;height:26px;display:block;border-radius:6px}
   .nav-cta{font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;
-    background:var(--accent);color:#1a1206;transition:.2s}
+    background:var(--accent);color:#241d0d;transition:.2s}
   .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 22px var(--accent-glow)}
 
   /* hero */
@@ -69,11 +69,11 @@
     border:1px solid var(--line);background:var(--bg-soft);padding:6px 14px;border-radius:999px;margin-bottom:28px}
   .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
   h1{font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
-  h1 .hl{background:linear-gradient(120deg,var(--accent),#ffd479);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .hl{background:linear-gradient(120deg,var(--accent),#f5e7c4);-webkit-background-clip:text;background-clip:text;color:transparent}
   .sub{max-width:620px;margin:22px auto 0;font-size:clamp(16px,2.1vw,20px);color:var(--ink-dim)}
   .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
   .btn{font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;transition:.2s;border:1px solid transparent;display:inline-flex;align-items:center;gap:9px}
-  .btn-primary{background:var(--accent);color:#1a1206}
+  .btn-primary{background:var(--accent);color:#241d0d}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--accent-glow)}
   .btn-ghost{border-color:var(--line);color:var(--ink);background:var(--bg-soft)}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
@@ -88,7 +88,7 @@
   .mock-bar span{margin-left:10px;font-size:12px;color:var(--ink-faint)}
   .mock-body{display:grid;grid-template-columns:1fr;gap:14px;padding:26px}
   .msg{max-width:80%;padding:13px 16px;border-radius:14px;font-size:14.5px}
-  .msg.user{align-self:flex-end;background:var(--accent-soft);border:1px solid #f59e0b33;justify-self:end}
+  .msg.user{align-self:flex-end;background:var(--accent-soft);border:1px solid #e9ce9833;justify-self:end}
   .msg.ai{align-self:flex-start;background:#11151133;border:1px solid var(--line);color:var(--ink-dim)}
   .msg.ai b{color:var(--accent)}
 
@@ -99,7 +99,7 @@
   .sec-h p{color:var(--ink-dim);margin-top:10px}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
   .card{border:1px solid var(--line);background:var(--bg-soft);border-radius:var(--radius);padding:26px;transition:.2s}
-  .card:hover{border-color:#f59e0b55;transform:translateY(-3px)}
+  .card:hover{border-color:#e9ce9855;transform:translateY(-3px)}
   .card .ic{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);display:grid;place-items:center;font-size:20px;margin-bottom:16px}
   .card h3{font-size:18px;letter-spacing:-.01em}
   .card p{color:var(--ink-dim);font-size:14.5px;margin-top:8px}
@@ -108,14 +108,14 @@
   .how{padding:72px 0}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
   .step{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:var(--bg-soft);position:relative}
-  .step .n{font-size:13px;font-weight:700;color:var(--accent);border:1px solid #f59e0b55;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin-bottom:14px}
+  .step .n{font-size:13px;font-weight:700;color:var(--accent);border:1px solid #e9ce9855;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin-bottom:14px}
   .step h3{font-size:16px}
   .step p{color:var(--ink-dim);font-size:14px;margin-top:7px}
 
   /* final cta */
   .final{padding:80px 0 96px;text-align:center}
-  .final-box{border:1px solid #f59e0b33;border-radius:24px;padding:56px 28px;
-    background:radial-gradient(600px 220px at 50% 0%, #f59e0b18, transparent 70%),var(--bg-soft)}
+  .final-box{border:1px solid #e9ce9833;border-radius:24px;padding:56px 28px;
+    background:radial-gradient(600px 220px at 50% 0%, #e9ce9818, transparent 70%),var(--bg-soft)}
   .final h2{font-size:clamp(26px,4.4vw,42px);letter-spacing:-.02em}
   .final p{color:var(--ink-dim);margin:14px auto 0;max-width:520px}
 
@@ -138,7 +138,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="brand"><img class="logo" src="./logo.svg" alt="Be.Ark" /> Be.Ark</div>
+    <div class="brand"><img class="logo" src="./appicon.png" alt="Be.Ark" /> Be.Ark</div>
     <a class="nav-cta" href="#download">Download</a>
   </div>
 </header>
@@ -231,7 +231,7 @@
 
 <footer>
   <div class="wrap foot">
-    <div class="brand" style="font-size:15px"><img class="logo" src="./logo.svg" alt="Be.Ark" /> Be.Ark</div>
+    <div class="brand" style="font-size:15px"><img class="logo" src="./appicon.png" alt="Be.Ark" /> Be.Ark</div>
     <div>© 2026 REBE WORLD FZCO · <a href="mailto:hello@re-be.world">hello@re-be.world</a></div>
   </div>
 </footer>
@@ -282,7 +282,7 @@
         if(s.a>0.85){s.a=0.85;s.dir=-1;} if(s.a<0.18){s.a=0.18;s.dir=1;}
         s.y+=s.vy; if(s.y>h){s.y=0;s.x=Math.random()*w;}
         x.globalAlpha=s.a;
-        x.fillStyle= i%17===0 ? '#f59e0b' : '#dfe7f2';
+        x.fillStyle= i%17===0 ? '#e9ce98' : '#dfe7f2';
         x.beginPath(); x.arc(s.x,s.y,s.r,0,6.28); x.fill();
       }
       x.globalAlpha=1;
@@ -291,7 +291,7 @@
         var px=sh.x, py=sh.y;
         sh.x+=sh.vx; sh.y+=sh.vy;
         var g=x.createLinearGradient(px,py,px-sh.vx*4,py-sh.vy*4);
-        g.addColorStop(0,'#ffffff'); g.addColorStop(0.4,'#f59e0bcc'); g.addColorStop(1,'#f59e0b00');
+        g.addColorStop(0,'#ffffff'); g.addColorStop(0.4,'#e9ce98cc'); g.addColorStop(1,'#e9ce9800');
         x.strokeStyle=g; x.lineWidth=2*DPR; x.beginPath();
         x.moveTo(px,py); x.lineTo(px-sh.vx*4,py-sh.vy*4); x.stroke();
         if(sh.life>sh.max||sh.x<-80||sh.x>w+80) shoots.splice(j,1);
