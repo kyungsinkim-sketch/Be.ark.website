@@ -131,11 +131,56 @@
   .foot a:hover{color:var(--accent)}
   .foot .brand .logo{width:22px;height:22px}
 
+  /* floating agent avatars beside hero headline */
+  .hero{position:relative}
+  .float-agents{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .float-agents .fa{position:absolute;width:84px;height:84px;border-radius:50%;
+    object-fit:cover;border:2px solid #c49c4d55;box-shadow:0 8px 30px #00000066,0 0 0 6px #c49c4d10;
+    opacity:.92;pointer-events:auto;cursor:default;
+    transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s,opacity .35s;
+    animation:floaty 6s ease-in-out infinite}
+  .float-agents .fa:hover{transform:scale(1.18) rotate(-3deg);opacity:1;
+    box-shadow:0 14px 44px #00000088,0 0 0 8px #c49c4d2a}
+  .float-agents .fa.a1{top:6%;left:6%;animation-delay:0s}
+  .float-agents .fa.a2{top:30%;left:1%;animation-delay:1.4s}
+  .float-agents .fa.a3{top:6%;right:6%;animation-delay:.7s}
+  .float-agents .fa.a4{top:30%;right:1%;animation-delay:2.1s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  /* app screenshot showcase under final cta */
+  .shot{margin:48px auto 0;max-width:900px;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 30px 90px #000000aa;background:#0a0e15;line-height:0}
+  .shot img{width:100%;height:auto;display:block}
+
+  /* download modal */
+  .modal-bg{position:fixed;inset:0;z-index:50;background:#04060ad9;backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:24px}
+  .modal-bg.open{display:flex}
+  .modal{width:100%;max-width:440px;border:1px solid #c49c4d33;border-radius:20px;
+    background:radial-gradient(600px 220px at 50% 0%, #c49c4d18, transparent 70%),var(--bg-soft);
+    padding:32px 28px;position:relative;animation:pop .25s cubic-bezier(.2,.8,.3,1)}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+  .modal h3{font-size:22px;letter-spacing:-.02em;text-align:center}
+  .modal p.msub{color:var(--ink-dim);font-size:14px;text-align:center;margin-top:8px}
+  .modal .dls{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+  .dl-opt{display:flex;align-items:center;gap:14px;border:1px solid var(--line);background:#0a0e15;
+    border-radius:13px;padding:15px 18px;transition:.2s;cursor:pointer}
+  .dl-opt:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 26px var(--accent-glow)}
+  .dl-opt .os{font-size:24px;width:30px;text-align:center}
+  .dl-opt .lbl{flex:1}
+  .dl-opt .lbl b{font-size:15px;display:block}
+  .dl-opt .lbl span{font-size:12px;color:var(--ink-faint)}
+  .dl-opt .arr{color:var(--accent);font-weight:700}
+  .modal .mnote{margin-top:18px;font-size:12px;color:var(--ink-faint);text-align:center}
+  .modal .x{position:absolute;top:14px;right:16px;font-size:20px;color:var(--ink-faint);cursor:pointer;line-height:1}
+  .modal .x:hover{color:var(--ink)}
+
   @media(max-width:720px){
     .grid,.steps{grid-template-columns:1fr}
     .hero{padding:72px 0 40px}
+    .float-agents{display:none}
   }
-  @media(prefers-reduced-motion:reduce){#stars{display:none}}
+  @media(prefers-reduced-motion:reduce){#stars{display:none}.float-agents .fa{animation:none}}
 </style>
 </head>
 <body>
@@ -151,6 +196,12 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="float-agents">
+    <img class="fa a1" src="./agent-1.jpg" alt="agent" />
+    <img class="fa a2" src="./agent-2.jpg" alt="agent" />
+    <img class="fa a3" src="./agent-3.jpg" alt="agent" />
+    <img class="fa a4" src="./agent-4.jpg" alt="agent" />
+  </div>
   <div class="wrap">
     <div class="pill"><span class="dot"></span> Local-first · Private by design</div>
     <h1>A personal AI that's<br><span class="hl">truly your own.</span></h1>
@@ -247,8 +298,35 @@ not another cloud account renting your mind back to you.</p>
       </div>
       <p class="note">Apple Silicon · Includes “Read Me First” setup guide</p>
     </div>
+
+    <!-- app screenshot showcase -->
+    <div class="shot">
+      <img src="./app-screenshot.jpg" alt="Be.Ark desktop app — chat, agents, and Living Files" loading="lazy" />
+    </div>
   </div>
 </section>
+
+<!-- DOWNLOAD MODAL -->
+<div class="modal-bg" id="dlModal">
+  <div class="modal">
+    <span class="x" id="dlClose">✕</span>
+    <h3>Download Be.Ark</h3>
+    <p class="msub">Pick your platform. Free · No account required.</p>
+    <div class="dls">
+      <a class="dl-opt" id="dl-mac" href="#">
+        <span class="os">🍎</span>
+        <span class="lbl"><b>macOS</b><span>Apple Silicon · .dmg</span></span>
+        <span class="arr">↓</span>
+      </a>
+      <a class="dl-opt" id="dl-win" href="#">
+        <span class="os">⊞</span>
+        <span class="lbl"><b>Windows</b><span>x64 · .exe</span></span>
+        <span class="arr">↓</span>
+      </a>
+    </div>
+    <p class="mnote">Unsigned beta — see the included “Read Me First” setup guide.</p>
+  </div>
+</div>
 
 <footer>
   <div class="wrap foot">
@@ -258,12 +336,39 @@ not another cloud account renting your mind back to you.</p>
 </footer>
 
 <script>
-  // Single source of truth for the download URL — update when the release is live.
-  var DOWNLOAD_URL = "https://github.com/kyungsinkim-sketch/Be.Ark/releases/latest";
-  ["dl-top","dl-main"].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.setAttribute("href", DOWNLOAD_URL);
-  });
+  // ── Download config — update these direct asset URLs when the release is live ──
+  var RELEASES_PAGE = "https://github.com/kyungsinkim-sketch/Be.Ark/releases/latest";
+  var DL_MAC = RELEASES_PAGE; // TODO: point to the .dmg asset URL
+  var DL_WIN = RELEASES_PAGE; // TODO: point to the .exe asset URL
+  (function(){
+    var mac=document.getElementById("dl-mac"), win=document.getElementById("dl-win");
+    if(mac) mac.setAttribute("href", DL_MAC);
+    if(win) win.setAttribute("href", DL_WIN);
+  })();
+
+  // ── Download modal ──
+  (function(){
+    var modal=document.getElementById("dlModal"),
+        closeBtn=document.getElementById("dlClose");
+    function open(e){ if(e) e.preventDefault(); modal.classList.add("open"); }
+    function close(){ modal.classList.remove("open"); }
+    ["dl-top","dl-main"].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.addEventListener("click", open);
+    });
+    // nav Download link
+    document.querySelectorAll('a.nav-cta[href="#download"]').forEach(function(el){
+      el.addEventListener("click", open);
+    });
+    if(closeBtn) closeBtn.addEventListener("click", close);
+    modal.addEventListener("click", function(e){ if(e.target===modal) close(); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape") close(); });
+    // close modal after choosing a platform
+    ["dl-mac","dl-win"].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.addEventListener("click", function(){ setTimeout(close,150); });
+    });
+  })();
 
   // ── Starfield: drifting stars + occasional shooting star ──
   (function(){
